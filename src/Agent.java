@@ -31,7 +31,6 @@ public class Agent {
         }else{              //Sinon on depose
             deposer();
         }
-        env.seDeplacer();
     }
 
     public void prendre() {
@@ -40,6 +39,7 @@ public class Agent {
         f = calculF();
         if(objet=="A"){
             double pPrendre = Math.pow(kplus / (kplus + f[0]), 2);
+//            System.out.println("pPrendre "+pPrendre);
             if (Math.random() <= pPrendre) {
                 objetPorte = "A";
                 env.prendre(this);
@@ -47,6 +47,7 @@ public class Agent {
             }
         }else if(objet=="B"){
             double pPrendre = Math.pow(kplus / (kplus + f[1]), 2);
+//            System.out.println("pPrendre "+pPrendre);
                 if (Math.random() <= pPrendre) {
                     objetPorte = "B";
                     env.prendre(this);
@@ -60,8 +61,17 @@ public class Agent {
         double[] f = new double[2];
         f = calculF();
         if(objet=="."){
-            if(objetPorte!=""){
+            if(objetPorte=="A"){
                 double pDeposer = Math.pow(f[0] / (kmoins + f[0]), 2);
+//                System.out.println("pDeposer "+pDeposer);
+                if (Math.random() <= pDeposer) {
+                    env.depot(this, objetPorte);
+                    //                System.out.println("Depot de " + objetPorte);
+                    objetPorte = "";
+                }
+            }else if(objetPorte=="B"){
+                double pDeposer = Math.pow(f[1] / (kmoins + f[1]), 2);
+//                System.out.println("pDeposer "+pDeposer);
                 if (Math.random() <= pDeposer) {
                     env.depot(this, objetPorte);
                     //                System.out.println("Depot de " + objetPorte);
@@ -82,23 +92,19 @@ public class Agent {
         memory.addLast(o);
     }
 
-    public ArrayDeque<String> getMemory() {
-        return memory;
-    }
-
     public double[] calculF(){
         double[] f = new double[2]; //Case[0] = Fa et case[0]=fb
         int nbA = 0;
         int nbB=0;
         for(int i=0;i<memory.size();i++){
-            if (memory.contains("A")){
+            if (memory.toArray()[i]==("A")){
                 nbA++;
-            }else if(memory.contains("B")){
+            }else if(memory.toArray()[i]==("B")){
                 nbB++;
             }
         }
-        f[0]=nbA/memory.size();
-        f[1]=nbB/memory.size();
+        f[0]=(double)nbA/(double)memory.size();
+        f[1]=(double)nbB/(double)memory.size();
 
         return f;
     }

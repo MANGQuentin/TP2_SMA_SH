@@ -150,20 +150,15 @@ public class Environnement {
     }
 
     public void prendre(Agent a){
-        int[] tab = hm_Agent.get(a);
-        map[tab[0]][tab[1]] = ".";
+        map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]]=".";
     }
 
     public String perceptionDeposer(Agent a) {
-        int[] tab = hm_Agent.get(a);
-        return map[tab[0]][tab[1]];
+        return map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]];
     }
 
     public void depot(Agent a, String o) {
-        int[] tab = hm_Agent.get(a);
-        map[tab[0]][tab[1]] = o;
+        map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]]=o;
     }
 
-    public void seDeplacer() {
-    }
 }
