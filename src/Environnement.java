@@ -42,8 +42,9 @@ public class Environnement {
                 key.action();
 //                System.out.println(key.getMemory());
             }
+            this.toString();
         }
-        this.toString();
+//        this.toString();
     }
 
     private HashMap<Agent,int[]> initAgent(int longeur, int largeur,int nbAgent,int tailleMemory) {
@@ -142,22 +143,28 @@ public class Environnement {
             tab[1]=this.longueur-1;
         }
         agent.addMemoire(map[tab[0]][tab[1]]);
-        hm_Agent.replace(agent,tab);
+        hm_Agent.replace(agent,tab);        //PB ici ???? On place l'agent sur sa nouvelle case et on regarde l'objet de cette
+        // nouvelle case
+        //alors qu'on devrait regarder la case précédente ?
     }
 
     public String perceptionPrendre(Agent a) {
+        System.out.println("Perception prendre " + map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]]);
         return map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]];
     }
 
     public void prendre(Agent a){
-        map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]]=".";
+        System.out.println("Prendre " + map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]]);
+        map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]]=".";    //Remplace la lettre par une case vide
     }
 
     public String perceptionDeposer(Agent a) {
+        System.out.println("Perception deposer " + map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]]);    //Il reprend la meme case
         return map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]];
     }
 
     public void depot(Agent a, String o) {
+        System.out.println("Deposer " + map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]]);
         map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]]=o;
     }
 
