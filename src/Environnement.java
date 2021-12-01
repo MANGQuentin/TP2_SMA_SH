@@ -34,7 +34,7 @@ public class Environnement {
     public void run() {
 
         System.out.println("Etat initial :");
-        System.out.println("A = Objet A ; B = Objet B et Z = Agent");
+        System.out.println("A = Objet A ; B = Objet B");
         this.toString();
         System.out.println("------------------------------------------");
         for(int i=0;i<iter;i++){
@@ -143,29 +143,22 @@ public class Environnement {
             tab[1]=this.longueur-1;
         }
         agent.addMemoire(map[tab[0]][tab[1]]);
-        hm_Agent.replace(agent,tab);        //PB ici ???? On place l'agent sur sa nouvelle case et on regarde l'objet de cette
-        // nouvelle case
-        //alors qu'on devrait regarder la case précédente ?
-        //Faire une fonction sedeplacer avec hm_Agent.replace(agent,tab); à la fin d'action d'un Agent
+        hm_Agent.replace(agent,tab);
     }
 
     public String perceptionPrendre(Agent a) {
-        System.out.println("Perception prendre " + map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]]);
         return map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]];
     }
 
     public void prendre(Agent a){
-        System.out.println("Prendre " + map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]]);
         map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]]=".";    //Remplace la lettre par une case vide
     }
 
     public String perceptionDeposer(Agent a) {
-        System.out.println("Perception deposer " + map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]]);    //Il reprend la meme case
         return map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]];
     }
 
     public void depot(Agent a, String o) {
-        System.out.println("Deposer " + map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]]);
         map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]]=o;
     }
 
