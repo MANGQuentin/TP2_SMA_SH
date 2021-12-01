@@ -146,6 +146,7 @@ public class Environnement {
         hm_Agent.replace(agent,tab);        //PB ici ???? On place l'agent sur sa nouvelle case et on regarde l'objet de cette
         // nouvelle case
         //alors qu'on devrait regarder la case précédente ?
+        //Faire une fonction sedeplacer avec hm_Agent.replace(agent,tab); à la fin d'action d'un Agent
     }
 
     public String perceptionPrendre(Agent a) {
