@@ -10,99 +10,126 @@ public class Agent {
     private String objetPorte;
     private ArrayDeque<String> memory;
     private int tailleMemory;
+    double[] f = new double[2];
 
-    public Agent(Environnement env, double kplus, double kmoins, String objetPorte, int tailleMemory) {
-        this.env = env;
+
+    public Agent(Environnement environnement, double kplus, double kmoins, String s, int tailleMemory) {
+        this.env = environnement;
         this.kplus = kplus;
         this.kmoins = kmoins;
-        this.objetPorte = objetPorte;
+        this.objetPorte = s;
         this.memory = new ArrayDeque<>();
         this.tailleMemory = tailleMemory;
     }
 
-    public void action(){
+    public void action() {
         Random rand = new Random();
         HashMap<Integer ,Direction> mouvement = env.perceptionSeDeplacer(this);
         int direction = rand.nextInt(mouvement.size());
-        deplacer(mouvement.get(direction));
+        env.deplacement(this,mouvement.get(direction));
         if(objetPorte==""){
             prendre();
         }else{
             deposer();
         }
+
     }
 
     public void prendre() {
-        String objet = env.perceptionPrendre(this); //Peut etre: . A ou B
-        double[] f = calculF();
-        if(objet=="A"){         //Si il y a un objet A sur la nouvelle case de l'agent
-            double pPrendre = Math.pow(kplus / (kplus + f[0]), 2);
-//            System.out.println("pPrendre "+pPrendre);
-            if (Math.random()<= pPrendre) {
+        String objet = env.perceptionPrendre(this);
+        double f[];
+        if(env.getTauxErreur()==0){
+            f = calculF();
+        }else{
+            f = calculF_TauxErreur(env.getTauxErreur());
+        }
+        calculProbaPrendre(objet, f);
+    }
+
+    public void calculProbaPrendre(String objet, double[] f){
+        double pPrendreA = Math.pow(kplus / (kplus + f[0]), 2);
+        double pPrendreB = Math.pow(kplus / (kplus + f[1]), 2);
+        if(objet=="A"){
+            double test = Math.random();
+            if (test<= pPrendreA) {
                 objetPorte = "A";
                 env.prendre(this);
-//                System.out.println("Prise A");
             }
         }else if(objet=="B"){
-            double pPrendre = Math.pow(kplus / (kplus + f[1]), 2);
-//            System.out.println("pPrendre "+pPrendre);
-                if (Math.random() <= pPrendre) {
-                    objetPorte = "B";
-                    env.prendre(this);
-//                    System.out.println("Prise B");
-                }
+            double test = Math.random();
+            if (test <= pPrendreB) {
+                objetPorte = "B";
+                env.prendre(this);
+            }
         }
     }
 
     public void deposer() {
         String objet = env.perceptionDeposer(this);
-        double[] f = calculF();
-        if(objet=="."){     //Si l'agent se trouve sur une case vide
-            if(objetPorte=="A"){       //Si l'agent porte un objet A
+        double f[];
+        Random random = new Random();
+        if(env.getTauxErreur()==0){
+            f = calculF();
+        }else{
+            f = calculF_TauxErreur(env.getTauxErreur());
+        }
+        calculProbaDeposer(objet, f);
+    }
+
+    public void calculProbaDeposer(String objet, double[] f){
+        if(objet=="."){
+            if(objetPorte=="A"){
                 double pDeposer = Math.pow(f[0] / (kmoins + f[0]), 2);
-//                System.out.println("pDeposer "+pDeposer);
-                if (Math.random() <= pDeposer) {
+                double test = Math.random();
+                if (test <= pDeposer) {
                     env.depot(this, objetPorte);
-                    //                System.out.println("Depot de " + objetPorte);
                     objetPorte = "";
                 }
             }else if(objetPorte=="B"){
                 double pDeposer = Math.pow(f[1] / (kmoins + f[1]), 2);
-//                System.out.println("pDeposer "+pDeposer);
-                if (Math.random() <= pDeposer) {
+                double test = Math.random();
+                if (test <= pDeposer) {
                     env.depot(this, objetPorte);
-                    //                System.out.println("Depot de " + objetPorte);
                     objetPorte = "";
                 }
             }
         }
     }
 
-    public void deplacer(Direction direction) {
-        env.deplacement(this, direction);
-    }
-
-    public void addMemoire(String o){
+    public void addMemoire(String s) {
         if(memory.size() == tailleMemory){
             memory.removeFirst();
         }
-        memory.addLast(o);
+        memory.addLast(s);
     }
 
     public double[] calculF(){
-        double[] f = new double[2]; //Case[0] = Fa et case[0]=fb
-        int nbA = 0;
-        int nbB=0;
+        int iterA = 0;
+        int iterB=0;
         for(int i=0;i<memory.size();i++){
             if (memory.toArray()[i]==("A")){
-                nbA++;
+                iterA++;
             }else if(memory.toArray()[i]==("B")){
-                nbB++;
+                iterB++;
             }
         }
-        f[0]=(double)nbA/(double)memory.size();
-        f[1]=(double)nbB/(double)memory.size();
+        f[0]=(double)iterA/(double)tailleMemory;
+        f[1]=(double)iterB/(double)tailleMemory;
+        return f;
+    }
 
+    public double[] calculF_TauxErreur(double e){
+        int iterA = 0;
+        int iterB=0;
+        for(int i=0;i<memory.size();i++){
+            if (memory.toArray()[i]==("A")){
+                iterA++;
+            }else if(memory.toArray()[i]==("B")){
+                iterB++;
+            }
+        }
+        f[0]=(double)(iterA+iterB*e)/(double)tailleMemory;
+        f[1]=(double)(iterA*e+iterB)/(double)tailleMemory;
         return f;
     }
 }
