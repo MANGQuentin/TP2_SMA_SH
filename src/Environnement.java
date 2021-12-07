@@ -1,5 +1,10 @@
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Random;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Environnement extends JPanel{
@@ -8,9 +13,10 @@ public class Environnement extends JPanel{
     private HashMap<Agent, int[]> hm_Agent = new HashMap<Agent, int[]>();
     private int longueur,largeur,iter,nbAgent, nbA, nbB, tailleMemory;
     private double kplus, kmoins, tauxErreur;
+    JFrame maFenetre = new JFrame();
 
-    public Environnement(int largeur, int longueur,int iter, double kplus, double kmoins,int nbAgent,
-                         int nbA, int nbB,int tailleMemory, double erreur) {
+    public Environnement(int largeur, int longueur, int iter, double kplus, double kmoins, int nbAgent,
+                         int nbA, int nbB, int tailleMemory, double erreur, JFrame maFenetre) {
         this.map=new String[largeur][longueur];
         this.mapAgent=new String[largeur][longueur];
         this.longueur=longueur;
@@ -23,6 +29,7 @@ public class Environnement extends JPanel{
         this.nbB=nbB;
         this.tailleMemory=tailleMemory;
         this.tauxErreur = erreur;
+        this.maFenetre = maFenetre;
         for(int i =0;i<largeur;i++){
             for(int j=0;j<longueur;j++){
                 map[i][j]=".";
@@ -46,6 +53,7 @@ public class Environnement extends JPanel{
             for ( Agent key : hm_Agent.keySet() ) {
                 key.action();
             }
+            maFenetre.repaint();
         }
         System.out.println("Map Finale :");
         afficherMap();
@@ -224,5 +232,34 @@ public class Environnement extends JPanel{
 
     public double getTauxErreur() {
         return tauxErreur;
+    }
+
+    private void doDrawing(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        Dimension size = getSize();
+        int w = size.width;
+        int h = size.height;
+        Random r = new Random();
+        for(int i=0;i<largeur;i++){
+            for(int j=0; j<longueur;j++){
+                if(map[i][j]=="A"){
+                    g2d.setPaint(Color.blue);
+                    int x = j * w / map.length;
+                    int y = i * h / map.length;
+                    g2d.drawLine(x, y, x, y);
+                }else if(map[i][j]=="B"){
+                    g2d.setPaint(Color.red);
+                    int x = j * w / map.length;
+                    int y = i * h / map.length;
+                    g2d.drawLine(x, y, x, y);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        doDrawing(g);
     }
 }
