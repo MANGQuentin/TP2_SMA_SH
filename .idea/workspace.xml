@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="bd669ffb-6f9e-4b9f-883f-4cd73eef76a0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TP2_SMA_SH/Environnement.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TP2_SMA_SH/Environnement.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TP2_SMA_SH/Direction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TP2_SMA_SH/Direction.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TP2_SMA_SH/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TP2_SMA_SH/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Direction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Environnement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Environnement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,17 +53,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -81,7 +68,8 @@
       <workItem from="1638696899791" duration="2269000" />
       <workItem from="1638721380548" duration="10000" />
       <workItem from="1638814643921" duration="540000" />
-      <workItem from="1638868920841" duration="7534000" />
+      <workItem from="1638868920841" duration="7571000" />
+      <workItem from="1638884115343" duration="1059000" />
     </task>
     <servers />
   </component>

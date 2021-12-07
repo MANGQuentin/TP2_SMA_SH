@@ -243,15 +243,15 @@ public class Environnement extends JPanel{
         for(int i=0;i<largeur;i++){
             for(int j=0; j<longueur;j++){
                 if(map[i][j]=="A"){
-                    g2d.setPaint(Color.blue);
+                    g2d.setColor(Color.blue);
                     int x = j * w / map.length;
                     int y = i * h / map.length;
-                    g2d.drawLine(x, y, x, y);
+                    g2d.drawString("a",x, y);
                 }else if(map[i][j]=="B"){
                     g2d.setPaint(Color.red);
                     int x = j * w / map.length;
                     int y = i * h / map.length;
-                    g2d.drawLine(x, y, x, y);
+                    g2d.drawString("b",x, y);
                 }
             }
         }
