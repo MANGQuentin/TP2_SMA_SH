@@ -32,7 +32,6 @@ public class Agent {
         }else{
             deposer();
         }
-
     }
 
     public void prendre() {
