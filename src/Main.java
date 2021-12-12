@@ -11,7 +11,7 @@ public class Main extends JPanel {
         maFenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         maFenetre.setLocationRelativeTo(null);
 
-        Environnement e = new Environnement(50,50,100
+        Environnement e = new Environnement(50,50,500000
                 ,0.1,0.3,20,200,200,10, 0.0,maFenetre);
         maFenetre.add(e);
 
