@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bd669ffb-6f9e-4b9f-883f-4cd73eef76a0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/TP2 version 1 - Demo.mp4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CR_TP2-Version-1.docx" beforeDir="false" afterPath="$PROJECT_DIR$/CR_TP2-Version-1.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TP2_SMA_SH/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TP2_SMA_SH/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-    </list>
+    <list default="true" id="bd669ffb-6f9e-4b9f-883f-4cd73eef76a0" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -88,7 +81,7 @@
       <workItem from="1638887556408" duration="33000" />
       <workItem from="1638955426000" duration="362000" />
       <workItem from="1638968960003" duration="9092000" />
-      <workItem from="1639307365600" duration="441000" />
+      <workItem from="1639307365600" duration="476000" />
     </task>
     <servers />
   </component>
