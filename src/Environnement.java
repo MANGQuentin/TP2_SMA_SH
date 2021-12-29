@@ -1,22 +1,19 @@
+import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Random;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class Environnement extends JPanel{
 
     private String[][] map, mapAgent;
     private HashMap<Agent, int[]> hm_Agent = new HashMap<Agent, int[]>();
-    private int longueur,largeur,iter,nbAgent, nbA, nbB, tailleMemory;
-    private double kplus, kmoins, tauxErreur;
+    private int longueur,largeur,iter,nbAgent, nbA, nbB,nbC, tailleMemory, ds, renouvellementAppel;
+    private double kplus, kmoins, tauxErreur, r;
     JFrame maFenetre = new JFrame();
 
     public Environnement(int largeur, int longueur, int iter, double kplus, double kmoins, int nbAgent,
-                         int nbA, int nbB, int tailleMemory, double erreur, JFrame maFenetre) {
+                         int nbA, int nbB, int tailleMemory, double erreur, JFrame maFenetre, int nbC, int ds,
+                         double r, int renouvellementAppel) {
         this.map=new String[largeur][longueur];
         this.mapAgent=new String[largeur][longueur];
         this.longueur=longueur;
@@ -30,12 +27,16 @@ public class Environnement extends JPanel{
         this.tailleMemory=tailleMemory;
         this.tauxErreur = erreur;
         this.maFenetre = maFenetre;
+        this.nbC=nbC;
+        this.ds=ds;
+        this.r=r;
+        this.renouvellementAppel=renouvellementAppel;
         for(int i =0;i<largeur;i++){
             for(int j=0;j<longueur;j++){
                 map[i][j]=".";
             }
         }
-        initObjet(nbA,nbB);
+        initObjet(nbA,nbB, nbC);
         initAgent(nbAgent);
     }
 
@@ -63,7 +64,7 @@ public class Environnement extends JPanel{
         afficherMapAgent();
     }
 
-    public void initObjet(int nbA, int nbB) {
+    public void initObjet(int nbA, int nbB, int nbC) {
         int x,y;
         Random random = new Random();
 
@@ -89,6 +90,17 @@ public class Environnement extends JPanel{
                 System.out.println(" Colonne= "+y);
 */            }
         }
+        while (nbC>0){
+            x = random.nextInt(largeur);
+            y = random.nextInt(longueur);
+            if(map[x][y]=="."){
+                map[x][y]= "C";
+                nbC--;
+/*                System.out.println("Obj B");
+                System.out.print("Ligne= "+x);
+                System.out.println(" Colonne= "+y);
+*/            }
+        }
     }
 
     public HashMap<Agent,int[]> initAgent(int nbAgent) {
@@ -98,7 +110,7 @@ public class Environnement extends JPanel{
             x = random.nextInt(largeur);
             y = random.nextInt(longueur);
             if(map[x][y]=="."){
-                Agent agent = new Agent(this,kplus,kmoins,"",tailleMemory);
+                Agent agent = new Agent(this,kplus,kmoins,"",tailleMemory,renouvellementAppel);
                 int[] coordXY = new int[2];
                 coordXY[0] = x;
                 coordXY[1] = y;
@@ -106,6 +118,7 @@ public class Environnement extends JPanel{
                     hm_Agent.put(agent,coordXY);
                     mapAgent[x][y] = "Z";
                     nbAgent--;
+                    System.out.println("X= " + x + " Y = " + y);
                 }
             }
         }
@@ -202,6 +215,8 @@ public class Environnement extends JPanel{
     }
 
     public void depot(Agent a, String o) {
+//        System.out.println("Depot objet = "+o);
+//        System.out.println("Aux coordonnées: "+ hm_Agent.get(a)[0] + " " + hm_Agent.get(a)[1]);
         map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]]=o;
     }
 
@@ -234,6 +249,91 @@ public class Environnement extends JPanel{
         return tauxErreur;
     }
 
+    public Agent diffusionSignal(Agent a){
+        int x,y,debutCol,debutLig,finCol,finLig;
+
+        x = hm_Agent.get(a)[0];     //Coordonnés de l'agent qui demande de l'aide
+        y = hm_Agent.get(a)[1];
+
+        if(x+ds>largeur){
+            finCol=largeur;
+        }else{
+            finCol=x+ds;
+        }
+        if(y+ds>longueur){
+            finLig=longueur;
+        }else{
+            finLig = y+ds;
+        }
+
+//        System.out.println("Coordonnées agent: " + x + " " + y);
+        for(debutCol = x-ds;debutCol<finCol;debutCol++){    //Pb dans le repérage des agents ??
+            if(debutCol<0){
+                debutCol=0;
+            }
+            for (debutLig = y-ds; debutLig < finLig; debutLig++) {
+                if(debutLig<0){
+                    debutLig=0;
+                }
+//                System.out.println("Analyse de la case : "+debutCol +" " +debutLig);
+                for (Agent key : hm_Agent.keySet()) {
+                    if (hm_Agent.get(key)[0] == debutCol && hm_Agent.get(key)[1] == debutLig && hm_Agent.get(a) != hm_Agent.get(key)) {
+                        if (hm_Agent.get(key.getObjetPorte()) == null) {        //Si l'agent ne porte rien
+                            return key;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public boolean seDeplacerV2(Agent agentCourant, Agent agentDest) {
+        int xSource, ySource, xDest, yDest,xDeplacement, yDeplacement;
+        int [] tempo = new int[2];
+        xDest = hm_Agent.get(agentDest)[0];
+        yDest = hm_Agent.get(agentDest)[1];
+        xSource = hm_Agent.get(agentCourant)[0];
+        ySource = hm_Agent.get(agentCourant)[1];
+        xDeplacement=xDest-xSource;
+        yDeplacement=yDest-ySource;
+
+        if(xDeplacement != 0 || yDeplacement != 0){
+            if(xDeplacement<0){
+                tempo[0] = xSource-1;
+                tempo[1] = ySource;
+                hm_Agent.replace(agentCourant,tempo);
+//                coordonneAgent();
+                return false;
+            }else if(xDeplacement>0){
+                tempo[0] = xSource+1;
+                tempo[1] = ySource;
+                hm_Agent.replace(agentCourant,tempo);
+//                coordonneAgent();
+                return false;
+            }
+
+            if(yDeplacement<0){
+                tempo[0]=xSource;
+                tempo[1]=ySource-1;
+                hm_Agent.replace(agentCourant,tempo);
+//                coordonneAgent();
+                return false;
+            }else if(yDeplacement>0){
+                tempo[0]=xSource;
+                tempo[1]=ySource+1;
+                hm_Agent.replace(agentCourant,tempo);
+//                coordonneAgent();
+                return false;
+            }
+        }else{
+//            coordonneAgent();
+            return true;
+        }
+        //       coordonneAgent();
+        return false;
+    }
+
     private void doDrawing(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         Dimension size = getSize();
@@ -246,12 +346,17 @@ public class Environnement extends JPanel{
                     g2d.setColor(Color.blue);
                     int x = j * w / map.length;
                     int y = i * h / map.length;
-                    g2d.drawString("a",x, y);
+                    g2d.drawString("⚈",x, y);
                 }else if(map[i][j]=="B"){
                     g2d.setPaint(Color.red);
                     int x = j * w / map.length;
                     int y = i * h / map.length;
-                    g2d.drawString("b",x, y);
+                    g2d.drawString("⚈",x, y);
+                }else if(map[i][j]=="C"){
+                    g2d.setPaint(Color.ORANGE);
+                    int x = j * w / map.length;
+                    int y = i * h / map.length;
+                    g2d.drawString("⚈",x, y);
                 }
             }
         }
@@ -262,4 +367,13 @@ public class Environnement extends JPanel{
         super.paintComponent(g);
         doDrawing(g);
     }
+
+    public void coordonneAgent(){
+        for (Agent key : hm_Agent.keySet()) {
+            System.out.println(key);
+            System.out.println("X = "+hm_Agent.get(key)[0]);
+            System.out.println("Y = "+hm_Agent.get(key)[1]);
+        }
+    }
+
 }

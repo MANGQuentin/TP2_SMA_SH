@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bd669ffb-6f9e-4b9f-883f-4cd73eef76a0" name="Default Changelist" comment="" />
+    <list default="true" id="bd669ffb-6f9e-4b9f-883f-4cd73eef76a0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TP2_SMA_SH/Agent.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TP2_SMA_SH/Agent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TP2_SMA_SH/Environnement.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TP2_SMA_SH/Environnement.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TP2_SMA_SH/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TP2_SMA_SH/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Environnement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Environnement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +25,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="ProjectId" id="21gg5sglvb2uchZzqbsSupowqqt" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -29,6 +45,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Samir Aknine/TP1_Taquin" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -44,19 +61,6 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="TP2_SMA_SH" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -82,6 +86,13 @@
       <workItem from="1638955426000" duration="362000" />
       <workItem from="1638968960003" duration="9092000" />
       <workItem from="1639307365600" duration="476000" />
+      <workItem from="1639929750038" duration="5987000" />
+      <workItem from="1640082467455" duration="13453000" />
+      <workItem from="1640168012795" duration="14295000" />
+      <workItem from="1640345745081" duration="2719000" />
+      <workItem from="1640358984056" duration="197000" />
+      <workItem from="1640694772237" duration="4464000" />
+      <workItem from="1640777805912" duration="105000" />
     </task>
     <servers />
   </component>
@@ -99,5 +110,15 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="Environnement" memberName="renouvellementAppel" />
+      </pinned-members>
+    </pin-to-top-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/TP2_SMA_SH$Main.ic" NAME="Main Coverage Results" MODIFIED="1640194499258" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
