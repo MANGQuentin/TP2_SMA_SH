@@ -118,7 +118,7 @@ public class Environnement extends JPanel{
                     hm_Agent.put(agent,coordXY);
                     mapAgent[x][y] = "Z";
                     nbAgent--;
-                    System.out.println("X= " + x + " Y = " + y);
+//                    System.out.println("X= " + x + " Y = " + y);
                 }
             }
         }
@@ -249,7 +249,7 @@ public class Environnement extends JPanel{
         return tauxErreur;
     }
 
-    public Agent diffusionSignal(Agent a){
+    public Agent diffusionSignal(Agent a){      //Hashmap agent - intensité du signal (selon sa position dans la grille)
         int x,y,debutCol,debutLig,finCol,finLig;
 
         x = hm_Agent.get(a)[0];     //Coordonnés de l'agent qui demande de l'aide
@@ -266,8 +266,8 @@ public class Environnement extends JPanel{
             finLig = y+ds;
         }
 
-//        System.out.println("Coordonnées agent: " + x + " " + y);
-        for(debutCol = x-ds;debutCol<finCol;debutCol++){    //Pb dans le repérage des agents ??
+        //Parcours les cases en partant de l'agent bloqué et en décrémentant l'intensité du signal (1/ds)
+        for(debutCol = x-ds;debutCol<finCol;debutCol++){
             if(debutCol<0){
                 debutCol=0;
             }
@@ -275,9 +275,10 @@ public class Environnement extends JPanel{
                 if(debutLig<0){
                     debutLig=0;
                 }
-//                System.out.println("Analyse de la case : "+debutCol +" " +debutLig);
                 for (Agent key : hm_Agent.keySet()) {
-                    if (hm_Agent.get(key)[0] == debutCol && hm_Agent.get(key)[1] == debutLig && hm_Agent.get(a) != hm_Agent.get(key)) {
+                    if (hm_Agent.get(key)[0] == debutCol && //Verifie les coordonnées d'un agent
+                            hm_Agent.get(key)[1] == debutLig &&
+                            hm_Agent.get(a) != hm_Agent.get(key)) {     //Empeche l'agent sur C de s'appeler soit même
                         if (hm_Agent.get(key.getObjetPorte()) == null) {        //Si l'agent ne porte rien
                             return key;
                         }

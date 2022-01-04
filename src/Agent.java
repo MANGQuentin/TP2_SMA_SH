@@ -51,8 +51,8 @@ public class Agent {
         }
     }
 
-    private void prendreObjetC() {  //Pb, prend l'objet 2 fois
- //       System.out.println("Prise objet C par " + this);
+    private void prendreObjetC() {
+//        System.out.println("Prise objet C par " + this);
         this.objetPorte="C";
         this.bloque=false;
         agentLier.appelle=false;
