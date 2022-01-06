@@ -110,7 +110,7 @@ public class Environnement extends JPanel{
             x = random.nextInt(largeur);
             y = random.nextInt(longueur);
             if(map[x][y]=="."){
-                Agent agent = new Agent(this,kplus,kmoins,"",tailleMemory,renouvellementAppel);
+                Agent agent = new Agent(this,kplus,kmoins,"",tailleMemory,renouvellementAppel,r);
                 int[] coordXY = new int[2];
                 coordXY[0] = x;
                 coordXY[1] = y;
@@ -118,7 +118,6 @@ public class Environnement extends JPanel{
                     hm_Agent.put(agent,coordXY);
                     mapAgent[x][y] = "Z";
                     nbAgent--;
-//                    System.out.println("X= " + x + " Y = " + y);
                 }
             }
         }
@@ -174,7 +173,7 @@ public class Environnement extends JPanel{
         }else if(coordonneAgent[1]==longueur){
             coordonneePossible.put(0, new Direction(coordonneAgent[0]-1, longueur));
             coordonneePossible.put(1, new Direction(coordonneAgent[0]-1, longueur-1));
-            coordonneePossible.put(2, new Direction(coordonneAgent[0], longueur-1)); //
+            coordonneePossible.put(2, new Direction(coordonneAgent[0], longueur-1));
             coordonneePossible.put(3, new Direction(coordonneAgent[0]+1, longueur-1));
             coordonneePossible.put(4, new Direction(coordonneAgent[0]+1, longueur));
         }else{
@@ -206,8 +205,8 @@ public class Environnement extends JPanel{
         return map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]];
     }
 
-    public void prendre(Agent a){
-        map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]]=".";
+    public void prendre(Agent a) {
+        map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]] = ".";
     }
 
     public String perceptionDeposer(Agent a) {
@@ -215,8 +214,6 @@ public class Environnement extends JPanel{
     }
 
     public void depot(Agent a, String o) {
-//        System.out.println("Depot objet = "+o);
-//        System.out.println("Aux coordonnées: "+ hm_Agent.get(a)[0] + " " + hm_Agent.get(a)[1]);
         map[hm_Agent.get(a)[0]][hm_Agent.get(a)[1]]=o;
     }
 
@@ -249,8 +246,9 @@ public class Environnement extends JPanel{
         return tauxErreur;
     }
 
-    public Agent diffusionSignal(Agent a){      //Hashmap agent - intensité du signal (selon sa position dans la grille)
+    public Agent diffusionSignal(Agent a){
         int x,y,debutCol,debutLig,finCol,finLig;
+        double intensiteSignal=0;
 
         x = hm_Agent.get(a)[0];     //Coordonnés de l'agent qui demande de l'aide
         y = hm_Agent.get(a)[1];
@@ -266,7 +264,6 @@ public class Environnement extends JPanel{
             finLig = y+ds;
         }
 
-        //Parcours les cases en partant de l'agent bloqué et en décrémentant l'intensité du signal (1/ds)
         for(debutCol = x-ds;debutCol<finCol;debutCol++){
             if(debutCol<0){
                 debutCol=0;
@@ -280,6 +277,11 @@ public class Environnement extends JPanel{
                             hm_Agent.get(key)[1] == debutLig &&
                             hm_Agent.get(a) != hm_Agent.get(key)) {     //Empeche l'agent sur C de s'appeler soit même
                         if (hm_Agent.get(key.getObjetPorte()) == null) {        //Si l'agent ne porte rien
+                            intensiteSignal = (double)tchebychev_Function(x,hm_Agent.get(key)[0],y,hm_Agent.get(key)[1])/ds;
+                            if(intensiteSignal<0.1){
+                                intensiteSignal=0;
+                            }
+                            key.setIntensiteAgent(intensiteSignal);
                             return key;
                         }
                     }
@@ -287,6 +289,20 @@ public class Environnement extends JPanel{
             }
         }
         return null;
+    }
+
+    private int tchebychev_Function(int x1, int x2, int y1, int y2){
+
+        int xtempo, ytempo;
+
+        xtempo = Math.abs(x2-x1);
+        ytempo = Math.abs(y2-y1);
+
+        if(xtempo>ytempo){
+            return xtempo;
+        }else{
+            return ytempo;
+        }
     }
 
     public boolean seDeplacerV2(Agent agentCourant, Agent agentDest) {
@@ -304,13 +320,11 @@ public class Environnement extends JPanel{
                 tempo[0] = xSource-1;
                 tempo[1] = ySource;
                 hm_Agent.replace(agentCourant,tempo);
-//                coordonneAgent();
                 return false;
             }else if(xDeplacement>0){
                 tempo[0] = xSource+1;
                 tempo[1] = ySource;
                 hm_Agent.replace(agentCourant,tempo);
-//                coordonneAgent();
                 return false;
             }
 
@@ -318,20 +332,16 @@ public class Environnement extends JPanel{
                 tempo[0]=xSource;
                 tempo[1]=ySource-1;
                 hm_Agent.replace(agentCourant,tempo);
-//                coordonneAgent();
                 return false;
             }else if(yDeplacement>0){
                 tempo[0]=xSource;
                 tempo[1]=ySource+1;
                 hm_Agent.replace(agentCourant,tempo);
-//                coordonneAgent();
                 return false;
             }
         }else{
-//            coordonneAgent();
             return true;
         }
-        //       coordonneAgent();
         return false;
     }
 

@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="bd669ffb-6f9e-4b9f-883f-4cd73eef76a0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SujeT_TP2_SMA.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/SujeT_TP2_SMA.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CR_TP2-Version-1.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP2 version 1 - Demo.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TP2_SMA_SH/Agent.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TP2_SMA_SH/Agent.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TP2_SMA_SH/Environnement.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TP2_SMA_SH/Environnement.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TP2_SMA_SH/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TP2_SMA_SH/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agent.java" afterDir="false" />
@@ -44,7 +46,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/TP2_SMA_SH-master" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.0" />
@@ -61,17 +63,6 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="TP2_SMA_SH" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -106,7 +97,10 @@
       <workItem from="1640777805912" duration="5461000" />
       <workItem from="1640792826021" duration="74000" />
       <workItem from="1640792978241" duration="6000" />
-      <workItem from="1641317925788" duration="4347000" />
+      <workItem from="1641317925788" duration="4786000" />
+      <workItem from="1641382543972" duration="15469000" />
+      <workItem from="1641409257787" duration="4258000" />
+      <workItem from="1641460035578" duration="8740000" />
     </task>
     <servers />
   </component>

@@ -1,10 +1,5 @@
 import javax.swing.*;
 
-//A faire:
-// Intensité du signal
-// Phéromones qui sévaporent
-// Renouvellement des appels
-
 public class Main extends JPanel {
     public static void main(String[] args) {
         long chrono = 0 ;
@@ -16,9 +11,9 @@ public class Main extends JPanel {
         maFenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         maFenetre.setLocationRelativeTo(null);
 
-        Environnement e = new Environnement(50,50,5000000
-                ,0.1,0.3,40,150,150,10, 0.0,maFenetre,
-                150,20,0.50,3);
+        Environnement e = new Environnement(50,50,9000000
+                ,0.1,0.3,20,200,200,10, 0,maFenetre,
+                200,2,0.1,3);
         maFenetre.add(e);
 
         maFenetre.setVisible(true);

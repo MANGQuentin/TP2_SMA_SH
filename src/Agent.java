@@ -5,20 +5,20 @@ import java.util.Random;
 public class Agent {
 
     private Environnement env;
-    private double kplus;
-    private double kmoins;
+    private double kplus,kmoins,r;
     private String objetPorte;
     private ArrayDeque<String> memory;
-    private int tailleMemory, renouvellementAppel;
+    private int tailleMemory, renouvellementAppel, compteur=0;
     double[] f = new double[2];
     private boolean bloque = false;
     private boolean appelle = false;
     private boolean memeCase;
+    private double intensiteAgent = 0;
     Agent agentLier;
 
 
     public Agent(Environnement environnement, double kplus, double kmoins, String s, int tailleMemory,
-                 int renouvellementAppel) {
+                 int renouvellementAppel, double r) {
         this.env = environnement;
         this.kplus = kplus;
         this.kmoins = kmoins;
@@ -26,11 +26,13 @@ public class Agent {
         this.memory = new ArrayDeque<>();
         this.tailleMemory = tailleMemory;
         this.renouvellementAppel=renouvellementAppel;
+        this.r=r;
     }
 
     public void action() {
         Random rand = new Random();
         HashMap<Integer ,Direction> mouvement = env.perceptionSeDeplacer(this);
+        this.compteur++;
         if(this.bloque==false){
             int direction = rand.nextInt(mouvement.size());
             env.deplacement(this,mouvement.get(direction));
@@ -42,17 +44,17 @@ public class Agent {
         }else if (this.bloque){
             if(this.appelle==true){
                 memeCase = env.seDeplacerV2(this,this.agentLier);
-                if(memeCase==true){
+                if(memeCase==true && this.intensiteAgent>r){
                     prendreObjetC();
+                }else if(this.compteur>renouvellementAppel){
+                    deposer();
+                    this.compteur=0;
                 }
-            }else{
-//                System.out.println("Ne prend pas l'objet C");
             }
         }
     }
 
     private void prendreObjetC() {
-//        System.out.println("Prise objet C par " + this);
         this.objetPorte="C";
         this.bloque=false;
         agentLier.appelle=false;
@@ -79,7 +81,6 @@ public class Agent {
         Agent agentDispo;
         agentDispo = env.diffusionSignal(a);
         if(agentDispo != null){
-//            System.out.println(agentDispo);
             this.agentLier = agentDispo;    //Liaison de l'agent courant avec l'agent cible
             agentDispo.agentLier=this;      //Liaison de l'agent cible avec l'agent courant
             agentDispo.appelle=true;
@@ -136,6 +137,8 @@ public class Agent {
             }else if(objetPorte=="C"){
                 env.depot(this,objetPorte);
                 objetPorte="";
+                this.bloque=false;
+                agentLier.appelle=false;
             }
         }
     }
@@ -179,5 +182,9 @@ public class Agent {
 
     public String getObjetPorte() {
         return objetPorte;
+    }
+
+    public void setIntensiteAgent(double intensiteAgent) {
+        this.intensiteAgent = intensiteAgent;
     }
 }
